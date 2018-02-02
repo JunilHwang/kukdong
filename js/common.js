@@ -6,82 +6,30 @@ $(pageLoadEvent)
 .on("click",".sub_view",subPageChange)
 .on("click",".main_view",mainView)
 .on('click','.sub-default .left, .sub-default .right',changePage)
+.on("wheel",".history",historyScroll)
+.on("wheel",".cable",cableScroll)
+.on("click",".cable .list li",cableOpen)
+
+$(window).on("keyup",function(e){
+	var keycode = e.keyCode;
+	if($(".layer_type2").length){
+		if(keycode == '27') $(".layer_type2").stop().fadeOut(300,function(){
+			$(this).removeClass("active")
+		})
+	}
+})
 
 //pageLoadEvent
 function pageLoadEvent(){
 
 	//Product Slide
-	//productSlide();
 
 	//animation Class Setting and play
-	//am.classSetting().change({obj:$('.main')}).play();
-	//am.classSetting().change({obj:$('.sub')}).play();
+	am.classSetting().change({obj:$('.main')}).play();
+	// am.classSetting().change({obj:$('.sub')}).play();
+	// subView(".sub09");
 
 	if(opener) opener.close();
-}
-
-//main Page Slide
-function productSlide(){
-	var
-		pos = 0,
-		width = 1080,
-		len = $('>ul>li',$('.product .slide')).length-1,
-		obj = $('.product .slide');
-
-	//btn Click Event
-	$('.slide-arrow').click(arrow);
-	$('.slide-pos a').click(positionSet);
-	$('.slide-category a').click(categorySet);
-
-	function arrow(){
-		$(this).hasClass('left') && (pos-=2);
-		play();
-	}
-
-	function positionSet(){
-		if(pos == $(this).index()) return false;
-		pos = $(this).index()-1;
-		play();
-	}
-
-	function categorySet(){
-		pos = $(this).data('pos');
-		play('none');
-	}
-
-	//slide Play
-	function play(type){
-		if(++pos>len)
-			pos = 0;
-		else if(pos<0)
-			pos=len;
-		if(pos < 8){
-			$('.slide-category a').removeClass('active').eq(0).addClass('active');
-			$('.sub-title>.active:not(.title1)').removeClass('active');
-			$('.sub-title>.title1:not(.active)').addClass('active')
-		} else if(pos < 11){
-			$('.slide-category a').removeClass('active').eq(1).addClass('active');
-			$('.sub-title>.active:not(.title2)').removeClass('active');
-			$('.sub-title>.title2:not(.active)').addClass('active')
-		} else {
-			$('.slide-category a').removeClass('active').eq(2).addClass('active');
-			$('.sub-title>.active:not(.title3)').removeClass('active');
-			$('.sub-title>.title3:not(.active)').addClass('active')
-		}
-		$(">ul>li.active",obj).removeClass("active");
-		if(type){
-			$('>ul',obj).css('margin-left',-pos*100+"%");
-			$(">ul>li",obj).eq(pos).addClass("active");
-		} else {
-			$('>ul',obj).stop().animate({
-				'marginLeft':-pos*100+"%"
-			},1000,function(){
-				$(">ul>li",obj).eq(pos).addClass("active");
-			});
-		}
-		$(".slide-pos a.active").removeClass("active");
-		$(".slide-pos a").eq(pos).addClass("active")
-	}
 }
 
 //subPageChange
@@ -112,9 +60,9 @@ function subView(menu){
 			callbackAnimation({type:'sub',menu:menu});
 		};
 	}
-	if(typeof menu == "string" && !$('.nav '+menu).hasClass('active')){
-		$('.nav .active').removeClass('active');
-		$('.nav '+menu).addClass('active');
+	if(typeof menu == "string" && !$('.gnb '+menu).hasClass('active')){
+		$('.gnb .active').removeClass('active');
+		$('.gnb '+menu).addClass('active');
 	}
 	am.callbackfn = callback;
 	am.change({obj:before,reverse:'reverse'}).play();
@@ -137,6 +85,7 @@ function callbackAnimation(option){
 			after  = $(option.menu);
 		break;
 	}
+	$(".page-title").addClass("ani");
 	before.fadeOut(300,function(){
 		before.removeClass('active');
 		$(this).removeAttr('style');
@@ -150,6 +99,7 @@ function callbackAnimation(option){
 				after.addClass('active');
 				am.change({obj:after,reverse:'normal'}).play();
 			}
+			$(".page-title").removeClass("ani").html($(".sub>.page.active").data("title"));
 		})
 	})
 }
@@ -169,6 +119,69 @@ function changePage(){
 	}
 	newObj = $('.sub>.page').eq(idx)
 	subView(newObj);
-	$('.nav .active').removeClass('active')
-	$('.nav li').eq(idx).addClass('active');
+	$('.gnb .active').removeClass('active')
+	if(idx < 7){
+		$('.gnb li').eq(0).addClass('active');
+	} else if(idx < 10){
+		$('.gnb li').eq(1).addClass('active');
+	} else {
+		$('.gnb li').eq(2).addClass('active');
+	}
+	$(".page-title").addClass("ani");
+	// $(".sub>.page.active").removeClass("active");
+	// newObj.addClass("active");
+	// setTimeout(function(){
+	// 	$(".page-title").html($(".sub>.page.active").data("title")).removeClass("ani");
+	// },100);
+}
+
+//history scroll
+function historyScroll(e){
+	var event = e.originalEvent;
+	var pos = $(".history-pos:checked").index();
+	$(".history-pos:checked")[0].checked = false;
+	if(event.deltaY > 0){
+		if(pos != 7) pos++;
+	} else {
+		if(pos != 0) pos--;
+	}
+	$(".history-pos").eq(pos).prop("checked",true);
+}
+
+//cable scroll
+function cableScroll(e){
+	var event = e.originalEvent;
+	var pos = $("input:checked",this).index();
+	$("input:checked",this).prop("checked",false);
+	if(event.deltaY > 0){
+		if(pos != 1) pos++;
+	} else {
+		if(pos != 0) pos--;
+	}
+	$("input",this).eq(pos).prop("checked",true);
+}
+
+//cableOpen
+function cableOpen(){
+	var key = $(".subject",this).html();
+	var img = $(".img_wrap",this).data("src");
+	var obj = product[key];
+	var characteristic = "";
+	var appfield = "";
+	for(var i=0,len=obj.characteristic.length;i<len;i++){
+		characteristic += '<p>- '+obj.characteristic[i]+'</p>';
+	}
+	for(var i=0,len=obj.app.length;i<len;i++){
+		appfield += '<p>- '+obj.app[i]+'</p>';
+	}
+	$(".layer_type2 .img_wrap img").attr("src",img);
+	$(".layer_type2 .layer_title").html(key);
+	$(".layer_type2 .char").html(characteristic);
+	$(".layer_type2 .app").html(appfield);
+	$(".layer_type2").addClass("active");
+	$(".layer_type2 .close").on("click",function(){
+		$(".layer_type2").stop().fadeOut(300,function(){
+			$(this).removeClass("active");
+		})
+	})
 }

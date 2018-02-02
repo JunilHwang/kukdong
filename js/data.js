@@ -1,4 +1,4 @@
-var product:{
+var product = {
 	"MIL-DTL-5015A":{
 		characteristic:[
 			"Threaded coupling",
@@ -101,26 +101,26 @@ var product:{
 	},
 	"SOLENOID VALVE":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
-			"-",
+			"",
 		]
 	},
 	"HIGH CURRENT CONNECTOR":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
-			"-",
+			"",
 		]
 	},
 	"POWER START CONNECTO":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
-			"-",
+			"",
 		]
 	},
 	"Cable Assembly for cooling Fan Controller for Armored Vehicle":{
@@ -147,23 +147,23 @@ var product:{
 	},
 	"Cable Assembly for Equipment Military Communications by Satellite":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
-			"-",
+			"",
 		]
 	},
 	"Cable Assembly for Military Protection Equipment":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
-			"-",
+			"",
 		]
 	},
 	"Cable Assembly for Military Sound-detecting Equipment":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
 			"Acoustic equipment (for ground detection sensors)",
@@ -171,7 +171,7 @@ var product:{
 	},
 	"Cable Assembly for Welding Machine at shipbuilding Yards":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
 			"Welding machine for shipyard",
@@ -179,7 +179,7 @@ var product:{
 	},
 	"AC Power Outlet at Outdoor Shipbuilding Yards":{
 		characteristic:[
-			"-",
+			"",
 		],
 		app:[
 			"For operation inside shipyard hull power supply",
@@ -205,20 +205,24 @@ var product:{
 	},
 	"Cooling Fan Controller of Armored Vehicle Engine":{
 		characteristic:[
-			"Temperature: -35 ° C to 50 ° C",
-			"Frequency range: 2 to 29.9999 MHz",
+			"Coolant temperature detection",
+			"Engine room internal temperature control",
 		],
 		app:[
-			"AM radio (PRC-950K)",
+			"K21 Infantry Fighting Vehicle",
+			"Wheel (6X6, 8X8) armored vehicle",
 		]
 	},
 	"Battery Box for Aircraft":{
 		characteristic:[
-			"Temperature: -35 ° C to 50 ° C",
-			"Frequency range: 2 to 29.9999 MHz",
+			"Excellent impact resistance",
+			"Ease of maintenance",
+			"Minimizing self-discharge",
 		],
 		app:[
-			"AM radio (PRC-950K)",
+			"500MD, UH-1H, KT-1, T-50, FA-50",
+			"Ground-based guided weapons (Chunma)",
+			"Suwon (Korean type maneuver helicopter)",
 		]
 	},
 	"Radio Handset (H-350K)":{
@@ -231,21 +235,23 @@ var product:{
 	},
 	"Dipole Antenna for AM Radio (AS-814K)":{
 		characteristic:[
-			"",
+			"Temperature: -35 ° C to 50 ° C",
+			"Frequency range: 2 to 29.9999 MHz",
 		],
 		app:[
-			"",
+			"AM radio (PRC-950K)",
 		]
 	},
 	"Limit switch for Armored Vehicle":{
 		characteristic:[
-			"",
+			"ON / OFF signal control according to operating force (5.0 ± 0.2Kgf)",
 		],
 		app:[
-			"",
+			"K21 Infantry Fighting Vehicle",
+			"K1 tram",
 		]
 	},
-	"XENON Portable Searchlight (RAYON & RAYON45)":{
+	"XENON Portable Searchlight (RAYON and RAYON45)":{
 		characteristic:[
 			"",
 		],
@@ -254,3 +260,4 @@ var product:{
 		]
 	},
 }
+console.log(product);
